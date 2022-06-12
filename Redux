@@ -1,0 +1,71 @@
+Redux:
+=========
+
+
+actions:
+
+export const inc = () => {
+return type:"INC"
+}
+
+export const dec = () => {
+return type:"DEC"
+} 
+
+==========================================
+1st reducer
+
+const intialize = 0;
+const reducer1=(state , action)=>{
+	switch(action.type){
+		case "INC":
+		return state + 1
+
+		case "DEC":
+		return state - 1
+	}
+}
+export default reducer1
+
+
+*> combine all reducers i a single reducer
+
+import reducer1 from ./
+import {combinereducer} from redux
+
+const rootreducer = combinereducer({reducer1,reducer2,reducer3}) 
+export default rootreducer
+
+========================================
+
+store:
+
+import {createstore} from redux
+import rootreducer from ./...
+
+const store = creatstore(rootreducer, window...)
+export default store
+
+========================================
+
+main index.js
+import store from ./...
+import {Provider} from react-redux
+
+<Provider>
+<app/>  
+</Provider>
+
+========================================
+main app.js
+
+import {useSelector,useDispatch} from react-redux
+import {inc,dec} from ./actions
+
+get data:
+const mystate=usestate((state)=>{state.reducer1})
+
+changes:
+const dispatch=useDispatch()
+
+onPress(dispatch.inc)
